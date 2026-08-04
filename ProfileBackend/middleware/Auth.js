@@ -1,5 +1,5 @@
 import JWT from "jsonwebtoken";
-import HttpError from "./HttpError.js";
+import HttpError from "./httpError.js";
 import modelUser from "../model/user.model.js";
 
 const auth = async (req, res, next) => {

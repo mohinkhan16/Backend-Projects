@@ -1,5 +1,5 @@
     import modelUser from "../model/user.model.js";
-    import HttpError  from "../middleware/httpError.js";
+    import HttpError  from "../middleware/HttpError.js";
 
 
     const Add = async (req,res,next) =>{

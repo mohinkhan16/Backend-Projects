@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 
 app.get("/",(req,res,next)=>{
-    res.status(200),json({success: true,
+    res.status(200).json({success: true,
         message: "Hello from server"})
 });
 

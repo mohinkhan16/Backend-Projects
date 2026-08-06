@@ -1,6 +1,6 @@
 // external module
 
-import joi from "joi"
+import Joi from "joi"
 
 //validation
 

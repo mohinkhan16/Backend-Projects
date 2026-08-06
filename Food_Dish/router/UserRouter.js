@@ -8,10 +8,21 @@ import { registerSchema } from "../validation/UserSchema.js";
 import validate from "../middleware/validate.js";
 import auth from "../middleware/auth.js";
 import checkRole from "../middleware/checkRole.js";
-import upload from "../middleware/upload.js";
+import Upload from "../middleware/upload.js";
 import { updateUserSchema } from "../validation/UserSchema.js";
 // router
 const router = express.Router();
+
+const upload = Upload({
+  folder: "Users",
+  formate: ["jpg", "jpeg", "png", "webp"],
+  mimeTypes: [
+    "image/jpeg",
+    "image/jpg",
+    "image/png",
+    "image/webp",
+  ],
+});
 
 router.post(
   "/add",

@@ -36,7 +36,7 @@ const resgisterAsprovider = async (req, res, next) => {
     await newProvider.save();
 
     const provider = await ProviderModel.findById(newProvider._id)
-      .populate("providerName", "Name Email")
+      .populate("providerName", "Name Email Address ")
       .populate("resturantName");
 
     res.status(201).json({

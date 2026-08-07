@@ -1,47 +1,44 @@
-
-// external module
 import express from "express";
 
-// local modules
 import UserController from "../controller/UserController.js";
-import { registerSchema } from "../validation/UserSchema.js";
+import { registerSchema, updateUserSchema } from "../validation/UserSchema.js";
 import validate from "../middleware/validate.js";
 import auth from "../middleware/auth.js";
 import checkRole from "../middleware/checkRole.js";
-import Upload from "../middleware/upload.js";
-import { updateUserSchema } from "../validation/UserSchema.js";
-// router
-const router = express.Router();
+import { profilePic } from "../middleware/upload.js";
 
-const upload = Upload({
-  folder: "Users",
-  formate: ["jpg", "jpeg", "png", "webp"],
-  mimeTypes: [
-    "image/jpeg",
-    "image/jpg",
-    "image/png",
-    "image/webp",
-  ],
-});
+const router = express.Router();
 
 router.post(
   "/add",
+  profilePic.single("Profile_Pic"),
   validate(registerSchema),
-  upload.single("Profile_Pic"),
-  UserController.add,
+  UserController.add
 );
+
 router.post("/userLogin", UserController.login);
+
 router.post("/authLogin", auth, UserController.authLogin);
+
 router.delete("/delete", auth, UserController.deleteUser);
+
 router.patch(
   "/update",
   auth,
-  upload.single("Profile_Pic"),
+  profilePic.single("Profile_Pic"),
   validate(updateUserSchema),
-  UserController.updateUser,
+  UserController.updateUser
 );
+
 router.get("/logoutUser", auth, UserController.logout);
+
 router.get("/allLogout", auth, UserController.logoutAll);
-router.get("/allUser", auth, checkRole("admin"), UserController.getAllUser);
+
+router.get(
+  "/allUser",
+  auth,
+  checkRole("admin"),
+  UserController.getAllUser
+);
 
 export default router;

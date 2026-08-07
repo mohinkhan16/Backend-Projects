@@ -5,13 +5,13 @@ import Joi from "joi"
 //validation
 
 export const providerSchema = Joi.object({
-  providerName: Joi.string().hex().length(24).required().messages({
+  providerName: Joi.string().length(24).required().messages({
     "string.hex": "Invalid Provider User Id",
     "string.length": "Provider User Id must be 24 characters",
     "any.required": "Provider User Id is required",
   }),
 
-  restaurantName: Joi.string().hex().length(24).required().messages({
+  restaurantName: Joi.string().length(24).required().messages({
     "string.hex": "Invalid Restaurant Id",
     "string.length": "Restaurant Id must be 24 characters",
     "any.required": "Restaurant Id is required",

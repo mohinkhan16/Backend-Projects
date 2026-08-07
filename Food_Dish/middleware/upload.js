@@ -1,64 +1,85 @@
-
 import multer from "multer";
 import cloudinary from "../config/cloudinary.js";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 
-
-// const storage = new CloudinaryStorage({
-//   cloudinary,
-//   params: {
-//     folder: "Food",
-//     allowed_formats: ["jpeg", "jpg", "png", "webp"],
-//     transformation: [
-//       {
-//         height: 800,
-//         width: 800,
-//         crop: "limit",
-//       },
-//       {
-//         fetch_format: "webp",
-//       },
-//     ],
-//   },
-// });
-
-// const upload = multer({
-//   storage,
-//   limits: {
-//     fileSize: 5 * 1024 * 1024,
-//   },
-// });
-
-
-const Upload = ({
+const createUploads = ({
   folder,
-  formate,
-  mimeTypes = [],
-  filesize = 5 * 1024 * 1024,
+  transformation = [],
   resource_type = "auto",
+  fileSize = 5 * 1024 * 1024,
+  allowed_formats = [],
+  mimetype = [],
 }) => {
   const storage = new CloudinaryStorage({
     cloudinary,
-    params: async (req, file) => ({
-      folder,
-      allowed_formats: formate,
-      resource_type,
-    }),
+    params: async (req, file) => {
+      return {
+        folder,
+        transformation,
+        resource_type,
+        allowed_formats,
+      };
+    },
   });
 
   return multer({
     storage,
     limits: {
-      fileSize: filesize,
+      fileSize,
     },
     fileFilter: (req, file, cb) => {
-      if (mimeTypes.length === 0 || mimeTypes.includes(file.mimetype)) {
-        cb(null, true);
-      } else {
-        cb(new Error("File format is not valid"), false);
+      if (mimetype.length && !mimetype.includes(file.mimetype)) {
+        return cb(
+          new Error(
+            `Invalid file type. Allowed types: ${mimetype.join(", ")}`
+          ),
+          false
+        );
       }
+
+      cb(null, true);
     },
   });
 };
 
-export default Upload;
+export const profilePic = createUploads({
+  folder: "Food_Dish/Profile_Pic",
+  transformation: [
+    {
+      width: 800,
+      height: 800,
+      crop: "limit",
+    },
+    {
+      fetch_format: "webp",
+    },
+    {
+      quality: "auto",
+    },
+  ],
+  allowed_formats: ["jpg", "jpeg", "png", "webp"],
+  mimetype: [
+    "image/jpeg",
+    "image/jpg",
+    "image/png",
+    "image/webp",
+  ],
+});
+
+export const RestaurantImage = createUploads({
+  folder: "food_Dish/RestaurantImage",
+  transformation: [
+    { height: "800", width: "800", crop: "limit" },
+    { fetch_format: "webp" },
+    { quality: "auto" },
+  ],
+  allowed_formats: ["jpeg", "jpg", "png", "webp"],
+  mimetype: ["image/jpeg", "image/png", "image/jpg", "image/webp"],
+});
+
+export const document = createUploads({
+  folder: "Food_Dish/Documents",
+  resource_type: "raw",
+  allowed_formats: ["pdf"],
+  mimetype: ["application/pdf"],
+});

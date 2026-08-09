@@ -4,12 +4,14 @@
 import modelUser from "../model/UserModel.js";
 import HttpError from "../middleware/HttpError.js";
 import cloudinary from "../config/cloudinary.js";
-
+import sendEmail from "../utils/sendEmail.js";
 import RestaurantModel from "../model/RestaurantModel.js";
+import { getWelcomeEmailTemplate } from "../services/emailTemplate.js";
 
 // add user
 const add = async (req, res, next) => {
   try {
+    
     const { Name, Email, Password, Role, Address, Phone, restaurant } =
       req.body;
 
@@ -26,8 +28,15 @@ const add = async (req, res, next) => {
 
     await newUser.save();
 
+    sendEmail({
+      to:newUser.Email,
+      subject:"welcome to Food-Dish",
+      html:getwelcomeEmailTemplate(newUser.Name)
+    })
+
     res.status(201).json({ success: true, message: "new User added", newUser });
   } catch (error) {
+    console.log("USER ADD ERROR:", error);
     next(new HttpError(error.message, 500));
   }
 };

@@ -12,7 +12,7 @@ const router = express.Router();
 router.post(
   "/add",
   profilePic.single("Profile_Pic"),
-  validate(registerSchema),
+  // validate(registerSchema),
   UserController.add
 );
 

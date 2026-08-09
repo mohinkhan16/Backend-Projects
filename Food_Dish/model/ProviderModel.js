@@ -14,7 +14,7 @@ const providerSchema = new mongoose.Schema({
   },
   document: [{
     type: String,
-    required: true,
+    // required: true,
   }],
   Cloudinary_Id: [{
     type: String,

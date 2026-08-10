@@ -11,10 +11,6 @@ Profile Backend is a RESTful API built using **Node.js**, **Express.js**, and **
 https://backend-projects-3-jwnw.onrender.com/Profile/getAll
 ---
 
-## 📌 video Link
-
-[https://backend-projects-3-jwnw.onrender.com/Profile/getAll](https://drive.google.com/file/d/1Q-Sz2YH849aePn_ovXBGefBw8t7Euq0r/view?usp=drive_link)
----
 # 🚀 Features
 
 ## 👤 User Authentication

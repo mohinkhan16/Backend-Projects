@@ -4,6 +4,7 @@ import {document} from "../middleware/upload.js";
 import ProviderController from "../controller/ProviderController.js";
 import { updateProviderSchema } from "../validation/ProviderSchema.js";
 import validate from "../middleware/validate.js";
+import providerModel from "../model/ProviderModel.js";
 
 const router = express.Router();
 
@@ -15,4 +16,12 @@ router.post(
   ProviderController.resgisterAsprovider
 );
 
+router.patch("/providerUpdate/:id",
+  auth,checkRole("admin"),document.array("document",3),
+  ProviderController.updateProvider,
+);
+
+router.delete("/providerDelete/:id",
+  auth,checkRole("admin",ProviderController.deleteProvider)
+)
 export default router;

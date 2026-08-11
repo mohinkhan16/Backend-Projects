@@ -1,6 +1,8 @@
 import ProviderModel from "../model/ProviderModel.js";
 import UserModel from "../model/UserModel.js";
 import HttpError from "../middleware/HttpError.js";
+import { getWelcomeEmailTemplate } from "../services/emailTemplate.js";
+import sendEmail from "../utils/sendEmail.js";
 
 const resgisterAsprovider = async (req, res, next) => {
   try {
@@ -34,6 +36,12 @@ const resgisterAsprovider = async (req, res, next) => {
     await user.save();
 
     await newProvider.save();
+
+    await sendEmail({
+      to:user.Email,
+      subject:"Welcome to Food_Dish - Provider Account",
+      html:getWelcomeEmailTemplate(user.Name,"provider")
+    })
 
     const provider = await ProviderModel.findById(newProvider._id)
       .populate("providerName", "Name Email Address ")

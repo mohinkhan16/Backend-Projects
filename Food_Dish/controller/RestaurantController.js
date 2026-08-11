@@ -3,7 +3,7 @@
 import RestaurantModel from "../model/RestaurantModel.js";
 import HttpError from "../middleware/HttpError.js";
 import cloudinary from "../config/cloudinary.js";
-
+import { getWelcomeEmailTemplate } from "../services/emailTemplate.js";
 const add = async (req, res, next) => {
   try {
     const {
@@ -33,6 +33,12 @@ const add = async (req, res, next) => {
     });
 
     await newRestaurant.save();
+
+    await sendEmail({
+      to:req.user.Email,
+      subject:"Resturant Added Successfully - Food_Dish",
+      html:getWelcomeEmailTemplate(newRestaurant.RestaurantName,"resturant")
+    })
 
     res.status(201).json({
       success: true,

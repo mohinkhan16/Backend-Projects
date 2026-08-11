@@ -14,12 +14,12 @@ export const registerSchema = Joi.object({
     "string.base": "Email must be in String format",
     "any.required": "Email ir required",
   }),
-  Password: Joi.string().min(6).max(20).required().messages({
-    "string.base": "Password must be in string format",
-    "string.min": "Password must be at least 6 character long",
-    "string.max": "Password must be 20 character long",
-    "any.required": "Password ir required",
-  }),
+  // Password: Joi.string().min(6).max(20).required().messages({
+  //   "string.base": "Password must be in string format",
+  //   "string.min": "Password must be at least 6 character long",
+  //   "string.max": "Password must be 20 character long",
+  //   "any.required": "Password ir required",
+  // }),
   Role: Joi.string().valid("customer", "admin","provider").default("customer"),
   Address: Joi.string().min(5).max(100).required().messages({
     "string.base": "Address must be in string format",

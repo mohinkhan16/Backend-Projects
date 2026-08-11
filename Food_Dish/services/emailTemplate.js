@@ -1,218 +1,432 @@
-export const getWelcomeEmailTemplate = (userName, appName = "YourApp", dashboardLink = "#") => {
-  return `
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to ${appName}</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
 
-      body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        line-height: 1.6;
-        color: #333;
-        background-color: #f4f4f4;
-      }
+export const getWelcomeEmailTemplate = (userName, type) => {
+  let title;
+  let subtitle;
+  let welcomeText;
+  let features;
+  let tips;
+  let buttonText;
+  let dashboardLink;
+  let icon;
+
+  // =========================
+  // USER
+  // =========================
+  if (type === "user") {
+    title = `🎉 Welcome to Food Dish`;
+    subtitle = "Your account is ready to go";
+    icon = "🍽️";
+
+    welcomeText = `
+      Thanks for signing up! Your Food Dish account has been
+      created successfully. We're excited to have you on board.
+    `;
+
+    features = `
+      <li>🍽️ Browse and order delicious food</li>
+      <li>📦 Track your orders in real time</li>
+      <li>❤️ Save your favorite food and restaurants</li>
+      <li>⭐ Rate and review your experience</li>
+    `;
+
+    tips = `
+      <p><strong>💡 Quick tips:</strong></p>
+      <p>🔐 Keep your password secure</p>
+      <p>📱 Keep your Food Dish account updated</p>
+      <p>🔔 Turn on notifications for order updates</p>
+    `;
+
+    buttonText = "🚀 Explore Food";
+    dashboardLink = "#";
+  }
+
+  // =========================
+  // PROVIDER
+  // =========================
+  else if (type === "provider") {
+    title = `🎉 Welcome to Food Dish`;
+    subtitle = "Grow your business with Food Dish";
+    icon = "👨‍🍳";
+
+    welcomeText = `
+      Your provider account has been created successfully.
+      You can now manage your services, connect with customers,
+      and grow your business with Food Dish.
+    `;
+
+    features = `
+      <li>👨‍🍳 Manage your food services</li>
+      <li>📦 Manage customer orders</li>
+      <li>👥 Connect with your customers</li>
+      <li>📈 Grow your business with Food Dish</li>
+    `;
+
+    tips = `
+      <p><strong>💡 Quick tips:</strong></p>
+      <p>🔐 Keep your provider account secure</p>
+      <p>📋 Keep your services and menu updated</p>
+      <p>🔔 Turn on notifications for new orders</p>
+    `;
+
+    buttonText = "🚀 Go to Provider Dashboard";
+    dashboardLink = "#";
+  }
+
+  // =========================
+  // RESTAURANT
+  // =========================
+  else if (type === "restaurant") {
+    title = `🎉 Welcome to Food Dish`;
+    subtitle = "Manage your restaurant with Food Dish";
+    icon = "🏪";
+
+    welcomeText = `
+      Your restaurant has been successfully added to Food Dish.
+      You can now manage your restaurant, add food items,
+      manage orders, and serve your customers.
+    `;
+
+    features = `
+      <li>🏪 Manage your restaurant profile</li>
+      <li>🍕 Add and manage food items</li>
+      <li>📦 Manage incoming orders</li>
+      <li>👥 Serve and connect with customers</li>
+    `;
+
+    tips = `
+      <p><strong>💡 Quick tips:</strong></p>
+      <p>🔐 Keep your restaurant account secure</p>
+      <p>🍕 Keep your food menu updated</p>
+      <p>🔔 Turn on notifications for new orders</p>
+    `;
+
+    buttonText = "🚀 Manage Restaurant";
+    dashboardLink = "#";
+  }
+
+  // =========================
+  // INVALID TYPE
+  // =========================
+  else {
+    throw new Error("Invalid email template type");
+  }
+
+
+  return `
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Welcome to Food Dish</title>
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f4f4f4;
+    }
+
+    .email-container {
+      max-width: 560px;
+      margin: 20px auto;
+      background-color: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #eee;
+    }
+
+    .header {
+      background-color: #6366F1;
+      color: white;
+      padding: 36px 20px;
+      text-align: center;
+    }
+
+    .header-icon {
+      font-size: 35px;
+      margin-bottom: 8px;
+    }
+
+    .header h1 {
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .header p {
+      font-size: 13px;
+      opacity: 0.9;
+      margin-top: 6px;
+    }
+
+    .content {
+      padding: 32px 28px;
+    }
+
+    .greeting {
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 16px;
+    }
+
+    .greeting strong {
+      color: #6366F1;
+    }
+
+    .welcome-text {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 20px;
+      line-height: 1.7;
+      white-space: pre-line;
+    }
+
+    .features {
+      background-color: #F5F5FF;
+      border-radius: 8px;
+      padding: 20px 22px;
+      margin: 22px 0;
+    }
+
+    .features h3 {
+      color: #6366F1;
+      font-size: 14px;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .features ul {
+      list-style: none;
+    }
+
+    .features li {
+      padding: 6px 0;
+      color: #555;
+      font-size: 14px;
+    }
+
+    .cta-container {
+      text-align: center;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background-color: #6366F1;
+      color: white;
+      padding: 12px 28px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 600;
+      margin: 20px 0;
+    }
+
+    .tips {
+      background-color: #F0FDFA;
+      border-radius: 8px;
+      padding: 18px 22px;
+      margin: 20px 0;
+      font-size: 13px;
+      color: #555;
+    }
+
+    .tips p {
+      padding: 4px 0;
+    }
+
+    .support-text {
+      font-size: 13px;
+      color: #777;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid #eee;
+    }
+
+    .support-text a {
+      color: #6366F1;
+      text-decoration: none;
+    }
+
+    .footer {
+      background-color: #f8f9fa;
+      padding: 20px 28px;
+      text-align: center;
+      border-top: 1px solid #eee;
+    }
+
+    .footer p {
+      font-size: 12px;
+      color: #888;
+      margin: 4px 0;
+    }
+
+    .footer a {
+      color: #6366F1;
+      text-decoration: none;
+    }
+
+    @media only screen and (max-width: 600px) {
 
       .email-container {
-        max-width: 560px;
-        margin: 20px auto;
-        background-color: #ffffff;
-        border-radius: 8px;
-        overflow: hidden;
-        border: 1px solid #eee;
-      }
-
-      .header {
-        background-color: #6366F1;
-        color: white;
-        padding: 36px 20px;
-        text-align: center;
-      }
-
-      .header h1 {
-        font-size: 24px;
-        font-weight: 700;
-      }
-
-      .header p {
-        font-size: 13px;
-        opacity: 0.9;
-        margin-top: 6px;
+        margin: 0;
+        border-radius: 0;
       }
 
       .content {
-        padding: 32px 28px;
-      }
-
-      .greeting {
-        font-size: 16px;
-        color: #333;
-        margin-bottom: 16px;
-      }
-
-      .greeting strong {
-        color: #6366F1;
-      }
-
-      .welcome-text {
-        font-size: 14px;
-        color: #555;
-        margin-bottom: 20px;
-      }
-
-      .features {
-        background-color: #F5F5FF;
-        border-radius: 8px;
-        padding: 20px 22px;
-        margin: 22px 0;
-      }
-
-      .features h3 {
-        color: #6366F1;
-        font-size: 14px;
-        margin-bottom: 12px;
-        font-weight: 600;
-      }
-
-      .features ul {
-        list-style: none;
-      }
-
-      .features li {
-        padding: 6px 0;
-        color: #555;
-        font-size: 14px;
+        padding: 24px 18px;
       }
 
       .cta-button {
-        display: inline-block;
-        background-color: #6366F1;
-        color: white;
-        padding: 12px 28px;
-        text-decoration: none;
-        border-radius: 6px;
-        font-size: 15px;
-        font-weight: 600;
-        margin: 20px 0;
-      }
-
-      .tips {
-        background-color: #F0FDFA;
-        border-radius: 8px;
-        padding: 18px 22px;
-        margin: 20px 0;
-        font-size: 13px;
-        color: #555;
-      }
-
-      .tips p {
-        padding: 4px 0;
-      }
-
-      .support-text {
-        font-size: 13px;
-        color: #777;
-        margin-top: 20px;
-        padding-top: 16px;
-        border-top: 1px solid #eee;
-      }
-
-      .footer {
-        background-color: #f8f9fa;
-        padding: 20px 28px;
+        display: block;
         text-align: center;
-        border-top: 1px solid #eee;
       }
 
-      .footer p {
-        font-size: 12px;
-        color: #888;
-        margin: 4px 0;
-      }
+    }
 
-      .footer a {
-        color: #6366F1;
-        text-decoration: none;
-      }
+  </style>
 
-      @media only screen and (max-width: 600px) {
-        .email-container {
-          margin: 0;
-          border-radius: 0;
-        }
+</head>
 
-        .content {
-          padding: 24px 18px;
-        }
 
-        .cta-button {
-          display: block;
-          text-align: center;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="email-container">
-      <!-- Header -->
-      <div class="header">
-        <h1>🎉 Welcome to ${appName}</h1>
-        <p>Your account is ready to go</p>
+<body>
+
+  <div class="email-container">
+
+    <!-- Header -->
+
+    <div class="header">
+
+      <div class="header-icon">
+        ${icon}
       </div>
 
-      <!-- Content -->
-      <div class="content">
-        <div class="greeting">
-          Hi <strong>${userName}</strong> 👋,
-        </div>
+      <h1>
+        Food Dish
+      </h1>
 
-        <div class="welcome-text">
-          Thanks for signing up! Your account has been created successfully and we're excited to have you on board.
-        </div>
+      <p>
+        ${subtitle}
+      </p>
 
-        <!-- Features Section -->
-        <div class="features">
-          <h3>✨ What you can do:</h3>
-          <ul>
-            <li>🍽️ Browse and order from your favorite places</li>
-            <li>📦 Track your orders in real time</li>
-            <li>❤️ Save favorites for quick reordering</li>
-            <li>⭐ Rate and review your experience</li>
-          </ul>
-        </div>
-
-        <!-- CTA Button -->
-        <a href="${dashboardLink}" class="cta-button">🚀 Get Started</a>
-
-        <!-- Quick Tips -->
-        <div class="tips">
-          <p><strong>💡 Quick tips:</strong></p>
-          <p>🔐 Set a strong password to keep your account safe</p>
-          <p>📱 Add ${appName} to your home screen for faster access</p>
-          <p>🔔 Turn on notifications so you never miss an update</p>
-        </div>
-
-        <div class="support-text">
-          Need help? Reach out to us anytime at <a href="mailto:support@${appName.toLowerCase()}.com">support@${appName.toLowerCase()}.com</a> 💬
-        </div>
-      </div>
-
-      <!-- Footer -->
-      <div class="footer">
-        <p>&copy; ${new Date().getFullYear()} ${appName}. All rights reserved.</p>
-        <p>You received this email because you created an account on ${appName}</p>
-      </div>
     </div>
-  </body>
-  </html>
+
+
+    <!-- Content -->
+
+    <div class="content">
+
+      <div class="greeting">
+
+        Hi <strong>${userName}</strong> 👋,
+
+      </div>
+
+
+      <div class="welcome-text">
+
+        ${welcomeText}
+
+      </div>
+
+
+      <!-- Features Section -->
+
+      <div class="features">
+
+        <h3>
+          ✨ What you can do:
+        </h3>
+
+        <ul>
+
+          ${features}
+
+        </ul>
+
+      </div>
+
+
+      <!-- CTA Button -->
+
+      <div class="cta-container">
+
+        <a
+          href="${dashboardLink}"
+          class="cta-button"
+        >
+          ${buttonText}
+        </a>
+
+      </div>
+
+
+      <!-- Quick Tips -->
+
+      <div class="tips">
+
+        ${tips}
+
+      </div>
+
+
+      <!-- Support -->
+
+      <div class="support-text">
+
+        Need help? Reach out to us anytime at
+
+        <a href="mailto:support@fooddish.com">
+          support@fooddish.com
+        </a>
+
+        💬
+
+      </div>
+
+    </div>
+
+
+    <!-- Footer -->
+
+    <div class="footer">
+
+      <p>
+        &copy; ${new Date().getFullYear()}
+        Food Dish. All rights reserved.
+      </p>
+
+      <p>
+        You received this email because you created
+        a ${type} account on Food Dish.
+      </p>
+
+    </div>
+
+  </div>
+
+</body>
+
+</html>
 `;
 };
 
-export default { getWelcomeEmailTemplate };
+
+export default {
+  getWelcomeEmailTemplate
+};
+

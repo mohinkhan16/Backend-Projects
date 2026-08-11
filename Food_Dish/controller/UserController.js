@@ -15,6 +15,9 @@ const add = async (req, res, next) => {
     const { Name, Email, Password, Role, Address, Phone, restaurant } =
       req.body;
 
+// console.log("REQ BODY:", req.body);
+// console.log("PASSWORD:", Password);
+
     const newUser = await modelUser({
       Name,
       Email,
@@ -31,12 +34,12 @@ const add = async (req, res, next) => {
     sendEmail({
       to:newUser.Email,
       subject:"welcome to Food-Dish",
-      html:getwelcomeEmailTemplate(newUser.Name)
+      html:getWelcomeEmailTemplate(newUser.Name)
     })
 
     res.status(201).json({ success: true, message: "new User added", newUser });
   } catch (error) {
-    console.log("USER ADD ERROR:", error);
+    // console.log("USER ADD ERROR:", error);
     next(new HttpError(error.message, 500));
   }
 };

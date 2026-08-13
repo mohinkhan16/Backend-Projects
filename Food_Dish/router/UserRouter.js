@@ -6,19 +6,21 @@ import validate from "../middleware/validate.js";
 import auth from "../middleware/auth.js";
 import checkRole from "../middleware/checkRole.js";
 import { profilePic } from "../middleware/upload.js";
+import { rateLimiter } from "../middleware/rateLimit.js";
 
 const router = express.Router();
 
 router.post(
   "/add",
   profilePic.single("Profile_Pic"),
+  rateLimiter,
   // validate(registerSchema),
   UserController.add
 );
 
 router.post("/userLogin", UserController.login);
 
-router.post("/authLogin", auth, UserController.authLogin);
+router.post("/authLogin", auth,rateLimiter,UserController.authLogin);
 
 router.delete("/delete", auth, UserController.deleteUser);
 

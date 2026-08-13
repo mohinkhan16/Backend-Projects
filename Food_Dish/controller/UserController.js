@@ -1,4 +1,3 @@
-// userController
 
 // local module
 import modelUser from "../model/UserModel.js";
@@ -11,12 +10,7 @@ import { getWelcomeEmailTemplate } from "../services/emailTemplate.js";
 // add user
 const add = async (req, res, next) => {
   try {
-    
-    const { Name, Email, Password, Role, Address, Phone, restaurant } =
-      req.body;
-
-// console.log("REQ BODY:", req.body);
-// console.log("PASSWORD:", Password);
+    const { Name, Email, Password, Role, Address, Phone } = req.body;
 
     const newUser = await modelUser({
       Name,
@@ -31,15 +25,18 @@ const add = async (req, res, next) => {
 
     await newUser.save();
 
-    sendEmail({
-      to:newUser.Email,
-      subject:"welcome to Food-Dish",
-      html:getWelcomeEmailTemplate(newUser.Name)
-    })
+    await sendEmail({
+      to: newUser.Email,
+      subject: "Welcome to Food-Dish",
+      html: getWelcomeEmailTemplate(newUser.Name, newUser.Role),
+    });
 
-    res.status(201).json({ success: true, message: "new User added", newUser });
+    res.status(201).json({
+      success: true,
+      message: "new User added",
+      newUser,
+    });
   } catch (error) {
-    // console.log("USER ADD ERROR:", error);
     next(new HttpError(error.message, 500));
   }
 };

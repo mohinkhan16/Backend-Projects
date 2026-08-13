@@ -1,4 +1,3 @@
-
 export const getWelcomeEmailTemplate = (userName, type) => {
   let title;
   let subtitle;
@@ -142,6 +141,32 @@ export const getWelcomeEmailTemplate = (userName, type) => {
       background-color: #f4f4f4;
     }
 
+    /* ===== Animations ===== */
+    /* Note: animations render on Apple Mail, iOS Mail, and most modern
+       webmail clients. Gmail/Outlook desktop will simply show the final
+       (static) state — this is a normal email-client limitation. */
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounceIcon {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    @keyframes pulseButton {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.45); }
+      50% { box-shadow: 0 0 0 8px rgba(20, 184, 166, 0); }
+    }
+
     .email-container {
       max-width: 560px;
       margin: 20px auto;
@@ -149,10 +174,11 @@ export const getWelcomeEmailTemplate = (userName, type) => {
       border-radius: 8px;
       overflow: hidden;
       border: 1px solid #eee;
+      animation: fadeInUp 0.6s ease-out;
     }
 
     .header {
-      background-color: #6366F1;
+      background: linear-gradient(135deg, #6366F1 0%, #14B8A6 100%);
       color: white;
       padding: 36px 20px;
       text-align: center;
@@ -161,6 +187,8 @@ export const getWelcomeEmailTemplate = (userName, type) => {
     .header-icon {
       font-size: 35px;
       margin-bottom: 8px;
+      display: inline-block;
+      animation: bounceIcon 2.2s ease-in-out infinite;
     }
 
     .header h1 {
@@ -198,9 +226,11 @@ export const getWelcomeEmailTemplate = (userName, type) => {
 
     .features {
       background-color: #F5F5FF;
+      border-left: 3px solid #6366F1;
       border-radius: 8px;
       padding: 20px 22px;
       margin: 22px 0;
+      animation: fadeInUp 0.7s ease-out;
     }
 
     .features h3 {
@@ -226,7 +256,7 @@ export const getWelcomeEmailTemplate = (userName, type) => {
 
     .cta-button {
       display: inline-block;
-      background-color: #6366F1;
+      background: linear-gradient(135deg, #6366F1 0%, #14B8A6 100%);
       color: white;
       padding: 12px 28px;
       text-decoration: none;
@@ -234,10 +264,12 @@ export const getWelcomeEmailTemplate = (userName, type) => {
       font-size: 15px;
       font-weight: 600;
       margin: 20px 0;
+      animation: pulseButton 2.5s ease-in-out infinite;
     }
 
     .tips {
       background-color: #F0FDFA;
+      border-left: 3px solid #14B8A6;
       border-radius: 8px;
       padding: 18px 22px;
       margin: 20px 0;
@@ -429,4 +461,3 @@ export const getWelcomeEmailTemplate = (userName, type) => {
 export default {
   getWelcomeEmailTemplate
 };
-

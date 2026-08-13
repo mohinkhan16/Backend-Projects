@@ -6,7 +6,7 @@ import sendEmail from "../utils/sendEmail.js";
 
 const resgisterAsprovider = async (req, res, next) => {
   try {
-    const userId = req.User._id;
+    const userId = req.user._id;
 
     const user = await UserModel.findById(userId);
 
@@ -22,14 +22,14 @@ const resgisterAsprovider = async (req, res, next) => {
       return next(new HttpError("Provider already registered", 400));
     }
 
-    const { resturantName, bankNumber } = req.body;
+    const { restaurantName, bankNumber } = req.body;
 
     const newProvider = new ProviderModel({
       providerName: userId,
-      resturantName,
+      restaurantName,
       bankNumber,
-      document: req.file?.path || null,
-      Cloudinary_Id: req.file?.filename || null,
+      document: req.files?.map((file) => file.path) || [],
+      Cloudinary_Id: req.files?.map((file) => file.filename) || [],
     });
 
     user.Role = "provider";
@@ -38,14 +38,14 @@ const resgisterAsprovider = async (req, res, next) => {
     await newProvider.save();
 
     await sendEmail({
-      to:user.Email,
-      subject:"Welcome to Food_Dish - Provider Account",
-      html:getWelcomeEmailTemplate(user.Name,"provider")
-    })
+      to: user.Email,
+      subject: "Welcome to Food_Dish - Provider Account",
+      html: getWelcomeEmailTemplate(user.Name, "provider"),
+    });
 
     const provider = await ProviderModel.findById(newProvider._id)
-      .populate("providerName", "Name Email Address ")
-      .populate("resturantName");
+      .populate("providerName", "Name Email Address")
+      .populate("restaurantName");
 
     res.status(201).json({
       success: true,

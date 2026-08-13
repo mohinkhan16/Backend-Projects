@@ -5,6 +5,7 @@ import ProviderController from "../controller/ProviderController.js";
 import { updateProviderSchema } from "../validation/ProviderSchema.js";
 import validate from "../middleware/validate.js";
 import providerModel from "../model/ProviderModel.js";
+import checkRole from "../middleware/checkRole.js"
 
 const router = express.Router();
 

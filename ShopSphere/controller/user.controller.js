@@ -27,6 +27,23 @@ const add = async (req,res,next)=>{
     }
 }
 
+const getAll = async (req, res, next) => {
+  try {
+    const users = await User.find({});
+
+    if(!users){
+      return next(new HttpError("user not found"));
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "All data found successfully",
+      users,
+    });
+  } catch (error) {
+    next(new HttpError(error.message, 500));
+  }
+};
 
 const login = async (req,res,next)=>{
     try {
@@ -52,4 +69,4 @@ const login = async (req,res,next)=>{
     }
 };
 
-export default{add,login}
+export default{add,login,getAll}

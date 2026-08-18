@@ -37,7 +37,7 @@ app.use("/restaurant", RestaurantRouter);
 app.use("/provider",ProviderRouter);
 app.use("/food",foodRouter);
 app.use("/category",CategoryRouter);
-app.use("Order",OrderRouter);
+app.use("/Order",OrderRouter);
 
 // server check
 app.get("/", (req, res) => {

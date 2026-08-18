@@ -1,5 +1,6 @@
 import Order from "../model/order.model.js";
 import HttpError from "../middleware/HttpError.js";
+import foodModel from "../model/food.model.js";
 
 const placeOrder = async (req, res, next) => {
     try {
@@ -11,7 +12,7 @@ const placeOrder = async (req, res, next) => {
 
         console.log("food id", foodIds);
 
-        const foods = await Food.find({
+        const foods = await foodModel.find({
             _id: { $in: foodIds }
         });
 
@@ -24,10 +25,6 @@ const placeOrder = async (req, res, next) => {
                 (food) =>
                     food._id.toString() === item.food.toString()
             );
-
-            if (!foodFound) {
-                throw new Error(`Food not found: ${item.food}`);
-            }
 
             console.log("food found", foodFound);
 
@@ -46,10 +43,10 @@ const placeOrder = async (req, res, next) => {
         console.log("total amount", totalAmount);
 
         const newOrder = await Order.create({
+            customerName:userId,
             Address,
             items: orderItems,
             RestaurantName,
-            customerName,
             totalAmount
         });
 

@@ -11,11 +11,11 @@ const OrderSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    resturantName:{
+   RestaurantName:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Restaurant",
     },
-    food:[{
+    fooditems:[{
         foodId:{
             type:mongoose.Schema.Types.ObjectId,
             ref:"food",

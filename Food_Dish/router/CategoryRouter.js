@@ -1,8 +1,9 @@
-import express from express;
+import express from "express"
 import categoryController from "../controller/categoryController.js";
-import auth, { categoryImage } from "../middleware/auth.js";
+import auth from "../middleware/auth.js";
 import checkRole from "../middleware/checkRole.js";
 import validate from "../middleware/validate.js";
+import { categoryImage } from "../middleware/upload.js";
 
 const router = express.Router();
 

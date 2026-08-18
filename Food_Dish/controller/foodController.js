@@ -1,4 +1,4 @@
-import foodModel from "../model/foodModel.js";
+import foodModel from "../model/food.model.js"
 import HttpError from "../middleware/HttpError.js";
 import cloudinary from "../config/cloudinary.js";
 

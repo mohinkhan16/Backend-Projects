@@ -17,6 +17,7 @@ import modelUser from "./model/UserModel.js";
 import ProviderRouter from "./router/ProviderRouter.js";
 import foodRouter from "./router/foodRouter.js";
 import CategoryRouter from "./router/CategoryRouter.js";
+import OrderRouter from "./router/OrderRoutes.js"
 
 //Securety
 import helmet from "helmet";
@@ -36,6 +37,7 @@ app.use("/restaurant", RestaurantRouter);
 app.use("/provider",ProviderRouter);
 app.use("/food",foodRouter);
 app.use("/category",CategoryRouter);
+app.use("Order",OrderRouter);
 
 // server check
 app.get("/", (req, res) => {

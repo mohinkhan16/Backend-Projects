@@ -1,3 +1,4 @@
+
 import Order from "../model/order.model.js";
 import HttpError from "../middleware/HttpError.js";
 import foodModel from "../model/food.model.js";
@@ -8,29 +9,25 @@ const placeOrder = async (req, res, next) => {
 
         const customerName = req.user._id;
 
-        const foodIds = fooditems.map((item) => item.food);
-
-        console.log("food id", foodIds);
+        const foodIds = fooditems.map((item) => item.foodId);
 
         const foods = await foodModel.find({
             _id: { $in: foodIds }
         });
-
-        console.log("user for food", foods);
 
         let totalAmount = 0;
 
         const orderItems = fooditems.map((item) => {
             const foodFound = foods.find(
                 (food) =>
-                    food._id.toString() === item.food.toString()
+                    food._id.toString() === item.foodId.toString()
             );
 
-            console.log("food found", foodFound);
+            if (!foodFound) {
+                throw new Error(`Food not found: ${item.foodId}`);
+            }
 
             const itemsTotal = foodFound.price * item.qty;
-
-            console.log("item total", itemsTotal);
 
             totalAmount += itemsTotal;
 
@@ -40,10 +37,8 @@ const placeOrder = async (req, res, next) => {
             };
         });
 
-        console.log("total amount", totalAmount);
-
         const newOrder = await Order.create({
-            customerName:userId,
+            customerName,
             Address,
             items: orderItems,
             RestaurantName,
@@ -53,7 +48,7 @@ const placeOrder = async (req, res, next) => {
         const orderPopulate = await newOrder.populate([
             {
                 path: "customerName",
-                select: "name email"
+                select: "Name Email"
             },
             {
                 path: "items.food",
@@ -76,3 +71,4 @@ const placeOrder = async (req, res, next) => {
 };
 
 export default { placeOrder };
+

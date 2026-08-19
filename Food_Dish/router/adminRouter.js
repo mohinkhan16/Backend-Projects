@@ -9,6 +9,7 @@ import auth from "../middleware/auth.js";
 import checkRole from "../middleware/checkRole.js";
 import  {profilePic} from "../middleware/upload.js";
 import { updateUserSchema } from "../validation/UserSchema.js";
+
 // router
 const router = express.Router();
 
@@ -26,5 +27,9 @@ router.patch(
   profilePic.single("Profile_Pic"),
   UserController.updateUser,
 );
+
+router.get("/dashboard",
+  auth,checkRole("admin"),
+)
 
 export default router;

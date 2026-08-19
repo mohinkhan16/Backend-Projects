@@ -101,7 +101,34 @@ export const getWelcomeEmailTemplate = (userName, type) => {
 
     buttonText = "🚀 Manage Restaurant";
     dashboardLink = "#";
-  }
+  }else if (type === "admin") {
+  title = `🎉 Welcome to Food Dish`;
+  subtitle = "Welcome to Food Dish Admin Panel";
+  icon = "🛡️";
+
+  welcomeText = `
+    Your admin account has been created successfully.
+    You can now manage users, providers, restaurants,
+    food items, and other Food Dish operations.
+  `;
+
+  features = `
+    <li>👥 Manage users</li>
+    <li>👨‍🍳 Manage providers</li>
+    <li>🏪 Manage restaurants</li>
+    <li>📊 Manage Food Dish platform</li>
+  `;
+
+  tips = `
+    <p><strong>💡 Quick tips:</strong></p>
+    <p>🔐 Keep your admin account secure</p>
+    <p>🔑 Never share your admin credentials</p>
+    <p>📊 Regularly check platform activity</p>
+  `;
+
+  buttonText = "🚀 Go to Admin Dashboard";
+  dashboardLink = "#";
+}
 
   // =========================
   // INVALID TYPE

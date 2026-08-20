@@ -5,6 +5,7 @@ import HttpError from "../middleware/HttpError.js";
 import cloudinary from "../config/cloudinary.js";
 import sendEmail from "../utils/sendEmail.js";
 import RestaurantModel from "../model/RestaurantModel.js";
+import auditLogger from "../middleware/auditLogger.js";
 import { getWelcomeEmailTemplate } from "../services/emailTemplate.js";
 
 // add user
@@ -59,6 +60,15 @@ const login = async (req, res, next) => {
       message: "user logged in successfully",
       user,
       token,
+    });
+
+    await auditLogger({
+      action:"  USER_LOGIN",
+      performedBy:user._id,
+      module:"user",
+      targetedId:user._id,
+      Ip:req.ip,
+      userAgent:req.get("user-agent"),
     });
   } catch (error) {
     next(new HttpError(error.message, 500));

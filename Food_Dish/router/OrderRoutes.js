@@ -7,6 +7,5 @@ const router = express.Router();
 
 router.post("/placeOrder",auth,OrderController.placeOrder);
 
-router.get("/dashboard",auth,Checkroll("admin"),OrderController.placeOrder);
 
 export default router;

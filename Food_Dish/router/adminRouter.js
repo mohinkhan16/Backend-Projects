@@ -28,8 +28,5 @@ router.patch(
   UserController.updateUser,
 );
 
-router.get("/dashboard",
-  auth,checkRole("admin"),
-)
-
+router.get("/dashboard",auth,OrderController.placeOrder);
 export default router;

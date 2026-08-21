@@ -70,5 +70,26 @@ const placeOrder = async (req, res, next) => {
     }
 };
 
-export default { placeOrder };
+const deleteOrder = async (req,res,next)=>{
+    try {
+        const userId= req.user._id;
+
+        const {id}= req.params;
+
+        const order = await foodModel.findOneAndDelete({_id:id});
+
+        if(!order){
+            return next (new HttpError("order not found",404));
+        }
+
+        return res.status(200).json({
+            success:true,
+            message:"order deleted successfully",
+        })
+    } catch (error) {
+        return next(new HttpError(error.message));
+    }
+}
+
+export default { placeOrder ,deleteOne };
 

@@ -7,5 +7,6 @@ const router = express.Router();
 
 router.post("/placeOrder",auth,OrderController.placeOrder);
 
+router.delete("/deleteOrder",auth,OrderController.deleteOne);
 
 export default router;

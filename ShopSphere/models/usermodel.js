@@ -1,6 +1,7 @@
 
-import mongoose from "mongoose"
-import { useTransition } from "react";
+import mongoose from "mongoose";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const userSchema = new mongoose.Schema({
     name:{
@@ -91,5 +92,24 @@ userScheme.methods.generateAuthToken = async function () {
   }
 };
 
+
+userSchema.methods.toJson = function (){
+    const user = this;
+
+    const userObject = user.toObject();
+
+    delete userObject.Password;
+
+    delete userObjest.tokens;
+
+    delete userObject.__.v;
+
+    delete userObject.createdAt;
+
+    delete userObject.updatedAt;
+
+    return userObject;
+
+}
 const User=mongoose.model("user",userSchema);
 export default User;

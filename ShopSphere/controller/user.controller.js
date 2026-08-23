@@ -2,6 +2,7 @@
 import User from '../models/user.model.js';
 
 import HttpError from "../middleware/HttpError.js";
+import cloudinary from '../../Food_Dish/config/cloudinary.js';
 
 const add = async (req,res,next)=>{
     try {
@@ -107,4 +108,63 @@ const logoutAll = async (req,res,next)=>{
         next(new HttpError(error.message));
     }
 }
-export default{add,login,getAll,authLogin}
+
+const delteUser = async (req,res,next) =>{
+    try {
+        const targetedUser = req.params.id || req.user._id;
+
+        const user = await User.findById(targetedUser);
+
+        await cloudinary.uploader.destroy(user.Cloudinary_Id);
+
+        await user.deleteOne();
+
+        res.status(200)
+        .json({success:true,message:"user data deleted successfully"})
+    } catch (error) {
+        next(new HttpError(error.message));
+    }
+}
+
+const updatedUser = async (req,res,next)=>{
+    try {
+        const targetedUser = req.params.id || req.user._id;
+
+        const user = await User.findById(targetedUser);
+
+        const updates = Object.keys(req.body);
+
+        let allowedFiled = ["Name","Address","Phone"];
+
+        if(req.user.Role === "admin"){
+            allowedFiled = [...allowedFiled ,"isVerified"];
+        }
+
+        const isValidation = update.every((filed)=>{
+            return allowedFiled.includes(filed);
+        })
+
+        if(!isValidation){
+            return next(new HttpError("only allowed filed can be update"))
+        }
+
+        if(req.file){
+            if(user.Cloudinary_Id){
+                await cloudinary.uploader.destroy(user.Cloudinary_Id);
+            }
+
+            user.Profile_Pic = req.file.path;
+
+            user.Cloudinary_Id = req.file.filename;
+        }
+
+        updates.forEach((update)=>{
+            user[update] = req.body[update]
+        });
+
+        await user.save();
+    } catch (error) {
+  next(new HttpError(error.message))      
+    }
+}
+export default{add,login,getAll,authLogin,delteUser,updatedUser};

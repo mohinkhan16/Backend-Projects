@@ -1,7 +1,9 @@
 import express from "express";
-import HttpError from "./middleWare/HttpError.js"
+import HttpError from "./middleWare/HttpError.js";
+import connectDB from "./config/db.js";
+import router from "./routes/UserRoutes.js";
 import dotenv from "dotenv";
-dotenv.config(path,"./.env");
+dotenv.config("./.env");
 
 const app = express()
 app.use(express.json());
@@ -12,6 +14,9 @@ app.get("/",(req,res,next)=>{
         message:"hello from server"
     })
 })
+
+//router
+app.use("/user",router);
 
 //middelware
 app.get((req,res,next)=>{

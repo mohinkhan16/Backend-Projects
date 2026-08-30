@@ -18,6 +18,6 @@ router.patch("/update",auth,controller.UpdateUser);
 
 router.delete("/delete",auth,controller.DeleteUser);
 
-router.get("/logoutAll", auth, controller.logOutAll);
+router.post("/logoutAll", auth, controller.logOutAll);
 
 export default router;

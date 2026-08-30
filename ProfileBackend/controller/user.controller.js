@@ -173,4 +173,5 @@
     }
     };
 
+
     export default{Add,getAll,login,AuthLogin,logOut,UpdateUser,DeleteUser,logOutAll};

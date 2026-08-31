@@ -1,6 +1,7 @@
 import User from "../model/user.model.js";
 import HttpError from "../middleWare/HttpError.js";
 
+//for user add
 const Add = async (req,res,next)=>{
     try {
         const {
@@ -31,6 +32,8 @@ const Add = async (req,res,next)=>{
     }
 }
 
+
+//for user login
 const login = async(req,res,next)=>{
     try {
         const {Email,Password} = req.body;
@@ -54,6 +57,7 @@ const login = async(req,res,next)=>{
     }
 }
 
+//authlogin
 const AuthLogin = async (req,res,next)=>{
     const user = req.user;
     
@@ -63,6 +67,8 @@ const AuthLogin = async (req,res,next)=>{
     })
 }
 
+
+//for user logout
 const logout = async (req,res,next)=>{
     try {
         req.user.tokens = req.user.tokens.filter((t)=>
@@ -79,6 +85,7 @@ const logout = async (req,res,next)=>{
     }
 }
 
+//for user logout from all device
 const logoutAll = async (req,res,next)=>{
     try {
         req.user.tokens = [];
@@ -93,6 +100,8 @@ const logoutAll = async (req,res,next)=>{
         next(new HttpError(error.message,500));
     }
 }
+
+///to get all user
 const GetAll = async(req,res,next)=>{
   try {
     const users =await User.find({});
@@ -111,6 +120,7 @@ const GetAll = async(req,res,next)=>{
   }
 }
 
+//for delete user
 const Deleteuser = async(req,res,next)=>{
     try {
         const user = req.user;
@@ -130,6 +140,7 @@ const Deleteuser = async(req,res,next)=>{
     }
 }
 
+//for update user
 const UpdateUser = async (req,res,next)=>{
     try {
         const user = req.user;

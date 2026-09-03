@@ -154,7 +154,7 @@ const UpdateUser = async (req,res,next)=>{
         const allowedfields = ["Name","Email","Address"];
 
         const isValid = update.every((feild)=>
-        allowedfields.includes(field));
+        allowedfields.includes(feild));
 
         if(!isValid){
             return next(new HttpError("only allowed feild can be update"));

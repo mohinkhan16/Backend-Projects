@@ -28,6 +28,11 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    role:{
+        type:String,
+        enum:["admin","doctor","nurse","patient","receptionist"],
+        default:"patient"
+    },
     isVerified:{
         type:Boolean,
         default:false

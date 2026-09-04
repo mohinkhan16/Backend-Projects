@@ -1,24 +1,25 @@
 import express from "express";
 import controller from "../Controller/UserController.js";
+import auth from "../middleWare/Auth.js"
 
 
 const router = express.Router();
 
 router.post("/Add",controller.Add);
 
-router.post("/login",controller.login);
+router.post("/login",auth,controller.login);
 
-router.post("/authlogin",controller.AuthLogin);
+router.post("/authlogin",auth,controller.AuthLogin);
 
-router.post("/logoutAll",controller.logoutAll);
+router.post("/logoutAll",auth,controller.logoutAll);
 
-router.post("/logout",controller.logout);
+router.post("/logout",auth,controller.logout);
 
-router.get("/getAll",controller.GetAll);
+router.get("/getAll",auth,controller.GetAll);
 
-router.delete("/deleteuser",controller.Deleteuser);
+router.delete("/deleteuser",auth,controller.Deleteuser);
 
-router.patch("/updateUser",controller.UpdateUser);
+router.patch("/updateUser",auth,controller.UpdateUser);
 
 
 

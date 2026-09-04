@@ -9,7 +9,8 @@ const Add = async (req,res,next)=>{
             Email,
             Password,
             Address,
-            Phone
+            Phone,
+            role
         }=req.body;
 
         const newUser = await User({
@@ -17,7 +18,8 @@ const Add = async (req,res,next)=>{
             Email,
             Password,
             Address,
-            Phone 
+            Phone,
+            role 
         })
 
         await newUser.save();

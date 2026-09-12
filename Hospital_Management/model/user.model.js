@@ -103,6 +103,7 @@ userSchema.methods.generateAuthToken = async function() {
     }
 };
 
+//delete one pertucular thing 
 userSchema.methods.toJSON = function (){
     const user = this;
 

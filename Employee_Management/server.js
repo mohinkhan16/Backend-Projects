@@ -38,7 +38,7 @@ app.use((error, req, res, next) => {
     .json({ message: error.message || "internal server error" });
 });
 
-const port = 5000;
+const port = 5001;
 
 async function startServer() {
   try {

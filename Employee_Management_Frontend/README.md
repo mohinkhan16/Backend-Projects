@@ -2,6 +2,10 @@
 
 A simple Employee Management System built using the MERN Stack. This application allows users to add, view, update, and delete employee records.
 
+## Live-Link:-
+https://dapper-heliotrope-7745f8.netlify.app
+
+
 ## Features
 
 - Add new employees

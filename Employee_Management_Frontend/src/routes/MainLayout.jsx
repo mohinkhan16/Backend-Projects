@@ -1,21 +1,17 @@
 
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import AppNavbar from "../ui/Navbar";
+import Container from "react-bootstrap/Container";
 
 function MainLayout() {
   return (
-    <div>
-      <h1>Employee Management System</h1>
+    <>
+      <AppNavbar />
 
-      <nav>
-        <Link to="/">Employees</Link>
-        {" | "}
-        <Link to="/add">Add Employee</Link>
-      </nav>
-
-      <hr />
-
-      <Outlet />
-    </div>
+      <Container className="py-4">
+        <Outlet />
+      </Container>
+    </>
   );
 }
 

@@ -39,8 +39,8 @@ function Employee() {
         </Link>
       </div>
 
-      <table className="table table-bordered table-hover">
-        <thead className="table-dark">
+      <table className="table table-bordered">
+        <thead className="table-primary">
           <tr>
             <th>Name</th>
             <th>Employee ID</th>

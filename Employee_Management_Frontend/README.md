@@ -6,7 +6,7 @@ A simple Employee Management System built using the MERN Stack. This application
 https://dapper-heliotrope-7745f8.netlify.app
 
 ## Video-Link:-
-[https://dapper-heliotrope-7745f8.netlify.app](https://drive.google.com/file/d/10kT1AYR-DbqPj_fA18l4f15S7hknkK4u/view?usp=drive_link)
+https://drive.google.com/file/d/10kT1AYR-DbqPj_fA18l4f15S7hknkK4u/view?usp=drive_link
 
 ## Features
 

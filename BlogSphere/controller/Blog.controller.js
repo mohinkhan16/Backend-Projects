@@ -1,6 +1,6 @@
 import BlogModel from "../model/BlogModel.js";
 import HttpError from "../middleware/HttpError.js";
-import cloudinary from "../config/coludinary.js";
+import cloudinary from "../config/cloudinary.js";
 
 const BlogAdd = async (req,res,next) =>{
     try {

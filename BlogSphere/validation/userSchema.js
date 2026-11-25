@@ -3,7 +3,7 @@ import Joi from "joi"
 //validation
 
 export const registerSchema = Joi.object({
-    Name:joi.string().min(2).max(30).trim().required().message({
+    Name: Joi.string().min(2).max(30).trim().required().messages({
         "string.base":"Name must be in string formate",
         "string.min": "Name must be at least 2 character long",
         "string.max": "Name must be 30 character long",

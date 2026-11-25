@@ -1,7 +1,7 @@
   // local module
   import modelUser from "../model/UserModel.js";
   import HttpError from "../middleware/HttpError.js";
-  import cloudinary from "../config/coludinary.js"
+  import cloudinary from "../config/cloudinary.js";
 
   // add user
   const add = async (req, res, next) => {

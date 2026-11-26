@@ -94,6 +94,7 @@ const UpdateBlog = async (req, res, next) => {
       success: true,
       message: "Blog updated successfully",
       blog,
+      BlogData: blog,
     });
 
   } catch (error) {

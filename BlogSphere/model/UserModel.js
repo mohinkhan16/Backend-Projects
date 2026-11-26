@@ -102,7 +102,7 @@ userScheme.methods.generateAuthToken = async function () {
 
     const token = jwt.sign(
       { _id: user._id.toString() },
-      process.env.JWT_SECRET,
+      process.env.JWT_SECRET || "your_super_secret_jwt_key",
       { expiresIn: "7d" },
     );
 

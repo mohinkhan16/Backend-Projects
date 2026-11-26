@@ -12,7 +12,10 @@ const auth = async (req, res, next) => {
 
         const token = authHeader.replace("Bearer", "").trim();
 
-        const decode = JWT.verify(token, process.env.JWT_SECRET);
+        const decode = JWT.verify(
+          token,
+          process.env.JWT_SECRET || "your_super_secret_jwt_key"
+        );
 
         const user = await User.findOne({
             _id: decode._id,

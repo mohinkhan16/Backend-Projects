@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5001",
+  baseURL: import.meta.env.VITE_API_URL || "https://backend-projects-2-6qxi.onrender.com",
 });
 
 // Attach JWT token to requests if available
@@ -24,7 +24,6 @@ API.interceptors.response.use(
   (error) => {
     if (error.response && error.response.status === 401) {
       // Token expired or invalid
-      // Token can be cleared if unauthorized on protected actions
     }
     return Promise.reject(error);
   }

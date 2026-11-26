@@ -8,16 +8,19 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/JWT': {
-        target: 'http://localhost:5001',
+        target: 'https://backend-projects-2-6qxi.onrender.com',
         changeOrigin: true,
+        secure: false,
       },
       '/blog': {
-        target: 'http://localhost:5001',
+        target: 'https://backend-projects-2-6qxi.onrender.com',
         changeOrigin: true,
+        secure: false,
       },
       '/admin': {
-        target: 'http://localhost:5001',
+        target: 'https://backend-projects-2-6qxi.onrender.com',
         changeOrigin: true,
+        secure: false,
       },
     },
   },

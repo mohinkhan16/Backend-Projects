@@ -6,7 +6,7 @@
   // add user
   const add = async (req, res, next) => {
     try {
-      const { Name, Email, Password, Role, Address, Phone } = req.body;
+      const { Name, Email, Password, Role, Address, Phone } = req.body || {};
 
       const newUser = await modelUser({
         Name,

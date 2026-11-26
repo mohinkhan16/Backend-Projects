@@ -6,7 +6,8 @@
 
     const router = express.Router();
 
-    router.post("/add",Usercontroller.add);
+    router.post("/add", upload.single("Profile_Pic"), Usercontroller.add);
+    router.post("/register", upload.single("Profile_Pic"), Usercontroller.add);
 
     router.get("/test", (req, res) => {
         res.json({

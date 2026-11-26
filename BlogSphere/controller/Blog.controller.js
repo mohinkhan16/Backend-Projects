@@ -4,7 +4,9 @@ import cloudinary from "../config/cloudinary.js";
 
 const BlogAdd = async (req,res,next) =>{
     try {
-        const {title,Discription,Category}=req.body;
+        const title = req.body.title || req.body.BlogTitle;
+        const Discription = req.body.Discription || req.body.description || req.body.content;
+        const Category = req.body.Category;
 
         const newBlog = await BlogModel({
             title,
@@ -17,7 +19,9 @@ const BlogAdd = async (req,res,next) =>{
         await newBlog.save();
         res.status(201).json({
             success:true,
-            message:"new Blog added successfully",newBlog
+            message:"new Blog added successfully",
+            newBlog,
+            newblog: newBlog,
         })
     } catch (error) {
         console.log(error);
@@ -27,13 +31,22 @@ const BlogAdd = async (req,res,next) =>{
 
 const getAllBlog = async (req, res, next) => {
   try {
-    const blog = await BlogModel.find().populate("Author", "Name Email");
+    const rawBlogs = await BlogModel.find().populate("Author", "Name Email");
+    const blog = rawBlogs.map(b => {
+      const doc = b.toObject();
+      doc.BlogTitle = doc.title;
+      doc.description = doc.Discription;
+      doc.content = doc.Discription;
+      doc.Blogimg = doc.BlogImg;
+      return doc;
+    });
 
     res.status(200).json({
       success: true,
       message: "All blogs fetched successfully",
       count: blog.length,
       blog,
+      BlogData: blog,
     });
   } catch (error) {
     console.log("GetAllBlog Error:", error);   // <-- ye add karo

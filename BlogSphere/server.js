@@ -44,6 +44,7 @@ app.use(express.json());
 
 // router
 app.use("/JWT/auth", router);
+app.use("/user", router);
 app.use("/blog", BlogRouter);
 app.use("/admin", AdminRouter);
 
